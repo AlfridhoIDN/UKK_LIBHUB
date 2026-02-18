@@ -14,7 +14,7 @@ class AdminOrStaff
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check() && (Auth::user()->role === 'admin' || Auth::user()->role === 'staff')) {
+        if (Auth::check() && (Auth::user()->role === 'admin' || Auth::user()->role === 'petugas')) {
             return $next($request);
         }
 

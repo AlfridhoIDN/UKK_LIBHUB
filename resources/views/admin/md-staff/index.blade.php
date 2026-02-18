@@ -23,7 +23,7 @@
                 <p class="text-xl font-black text-slate-800">{{ $staffs->count() }} Orang</p>
             </div>
         </div>
-        </div>
+    </div>
 
     <div class="bg-white rounded-[2rem] border border-slate-100 shadow-sm overflow-hidden">
         <div class="p-6 border-b border-slate-50 flex flex-col md:flex-row gap-4 justify-between">
@@ -92,7 +92,7 @@
                                 <a href="{{ route('admin.staff.edit', $staff->id) }}" class="w-9 h-9 flex items-center justify-center text-blue-500 hover:bg-blue-50 rounded-xl transition border border-slate-100 shadow-sm" title="Edit Data">
                                     <i class="fa-solid fa-pen-to-square text-sm"></i>
                                 </a>
-                                <form action="#" method="POST" onsubmit="return confirm('Yakin ingin menghapus staff ini?')">
+                                <form action="{{ route('admin.staff.delete', $staff->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus staff ini?')">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="w-9 h-9 flex items-center justify-center text-red-500 hover:bg-red-50 rounded-xl transition border border-slate-100 shadow-sm" title="Hapus">

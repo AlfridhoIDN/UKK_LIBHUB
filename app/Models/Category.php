@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
+    protected $table = 'kategori_buku';
     protected $fillable  = [
-        'name',
+        'nama_kategori',
     ];
 }

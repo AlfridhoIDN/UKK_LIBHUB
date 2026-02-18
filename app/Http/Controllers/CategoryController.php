@@ -13,7 +13,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-        return view('category.index',compact('categories')); 
+        return view('admin.md-category.index',compact('categories'));
     }
 
     /**
@@ -21,7 +21,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.md-category.create');
     }
 
     /**
@@ -29,7 +29,13 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama_kategori' => 'required|unique:kategori_buku|min:3'
+        ]);
+
+        Category::create($request->all());
+
+        return redirect()->route('category.index')->with('success', 'You have been added successfully');
     }
 
     /**
@@ -45,7 +51,8 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $categories = Category::findOrFail($id);
+        return view('admin.md-category.edit',compact('categories'));
     }
 
     /**
@@ -53,7 +60,16 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $categories = Category::findOrFail($id);
+
+        $request->validate([
+            'nama_kategori' => 'required|min:3|unique:kategori_buku'
+        ]);
+
+        $categories->nama_kategori = $request->nama_kategori;
+        $categories->save();
+
+        return redirect()->route('category.index')->with('success', 'You have been updated successfully');
     }
 
     /**
@@ -61,6 +77,9 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $categories = Category::findOrFail($id);
+
+        $categories->delete();
+        return redirect()->route('category.index')->with('success', 'You have been deleted successfully');
     }
 }

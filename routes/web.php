@@ -4,6 +4,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\BookController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [DashboardController::class, 'index'])->name('landingpage');
@@ -27,8 +29,6 @@ Route::group(['prefix' => '/'], function(){
         Route::get('logout',[UserController::class,'logout'])->name('account.logout');
 
         Route::middleware(['admin'])->group(function (){
-            Route::get('admin/dashboard',[AdminController::class,'index'])->name('admin.dashboard');
-
             Route::get('admin/staff-data',[StaffController::class,'index'])->name('admin.staff.index');
             Route::get('admin/staff-data/registration',[StaffController::class,'create'])->name('admin.staff.create');
             Route::post('admin/staff-data/registration',[StaffController::class,'store'])->name('admin.staff.store');
@@ -37,11 +37,24 @@ Route::group(['prefix' => '/'], function(){
             Route::put('admin/staff-data/update-data/{id}', [StaffController::class, 'update'])->name('admin.staff.update');
 
             Route::get('admin/staff-data/detail-data/{id}',[StaffController::class, 'show'])->name('admin.staff.show');
+            Route::delete('admin/staff-data/delete/{id}', [StaffController::class, 'destroy'])->name('admin.staff.delete');
         });
 
         Route::group(['middleware' => ['admin_or_staff']],function(){
+            Route::get('dashboard',[AdminController::class,'index'])->name('admin.dashboard');
+
             Route::get('user-data',[UserController::class, 'index'])->name('user.index');
             Route::get('user-data/detail-user-data/{id}',[UserController::class,'show'])->name('user.show');
+
+            Route::get('category-data',[CategoryController::class,'index'])->name('category.index');
+            Route::get('category-data/create',[CategoryController::class, 'create'])->name('category.create');
+            Route::post('category-data/create',[CategoryController::class, 'store'])->name('category.store');
+            
+            Route::get('category-data/edit/{id}',[CategoryController::class, 'edit'])->name('category.edit');
+            Route::put('category-data/edit/{id}',[CategoryController::class, 'update'])->name('category.update');
+            Route::delete('category-data/delete/{id}', [CategoryController::class, 'destroy'])->name('category.delete');
+
+            Route::get('book-data', [BookController::class, 'index'])->name('book.index');
         });
     // });
 });
