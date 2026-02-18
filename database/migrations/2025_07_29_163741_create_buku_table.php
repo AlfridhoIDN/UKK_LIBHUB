@@ -18,6 +18,7 @@ class CreateBukuTable extends Migration
             $table->string('penerbit');    
             $table->year('tahun_terbit');  
             $table->string('cover_image')->nullable();
+            $table->string('deskripsi')->nullable();
             $table->timestamps();
         });
     }

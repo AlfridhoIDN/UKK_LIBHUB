@@ -84,17 +84,16 @@ class StaffController extends Controller
         $staff = User::findOrFail($id);
 
         $request->validate([
-            'username'     => 'nullable|min:3|max:225' . $id,
-            'nama_lengkap' => 'nullable|min:3|max:255',
-            'email'        => 'nullable|email|unique:users,email,' . $id,
+            'username'     => 'required|min:3|max:225',
+            'nama_lengkap' => 'required|min:3|max:255',
+            'email'        => 'required|email|unique:users,email,' . $id,
             'password'     => 'nullable|min:8',
-            'alamat'       => 'nullable|min:5|max:255',
+            'alamat'       => 'required|min:5|max:255',
         ]);
 
         $staff->nama_lengkap = $request->nama_lengkap;
         $staff->username = $request->username;
         $staff->email = $request->email;
-        $staff->password = $request->password;
         $staff->alamat = $request->alamat;
 
         if ($request->filled('password')) {
@@ -112,6 +111,9 @@ class StaffController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $staff = User::findOrFail($id);
+
+        $staff->delete();
+        return redirect()->route('admin.staff.index')->with('success', 'Data staff berhasil dihapus!');
     }
 }

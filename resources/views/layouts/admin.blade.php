@@ -45,12 +45,12 @@
                     <span x-show="sidebarOpen" x-cloak class="font-bold text-sm">Data Pengguna</span>
                 </a>
 
-                <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-2xl hover:bg-emerald-800 transition group">
+                <a href="{{ route('category.index') }}" class="flex items-center gap-4 px-4 py-3 rounded-2xl hover:bg-emerald-800 transition group">
                     <svg class="w-6 h-6 text-emerald-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 11h.01M7 15h.01M11 7h.01M11 11h.01M11 15h.01M15 7h.01M15 11h.01M15 15h.01"></path></svg>
                     <span x-show="sidebarOpen" x-cloak class="font-bold text-sm">Data Kategori</span>
                 </a>
 
-                <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-2xl hover:bg-emerald-800 transition group">
+                <a href="{{ route('book.index') }}" class="flex items-center gap-4 px-4 py-3 rounded-2xl hover:bg-emerald-800 transition group">
                     <svg class="w-6 h-6 text-emerald-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253"></path></svg>
                     <span x-show="sidebarOpen" x-cloak class="font-bold text-sm">Data Buku</span>
                 </a>
