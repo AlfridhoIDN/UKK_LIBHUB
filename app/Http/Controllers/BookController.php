@@ -31,7 +31,14 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+        'judul' => 'required|min:3',
+        'penulis' => 'required|min3',
+        'category_id' => 'required|min3',
+        'tahun_terbit' => 'required|min:3',
+        'penerbit' => 'required|min:3',
+        ]);
+        
     }
 
     /**
