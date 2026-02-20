@@ -1,20 +1,25 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Loan;
 use Illuminate\Http\Request;
-use App\Models\Book;
-use App\Models\Category;
 
-class BookController extends Controller
+class LoanController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $books = Book::all();
-        return view('admin.md-book.index',compact('books'));
+        $status = $request->query('status', 'pending'); // default ke request
+        
+        $loans = Loan::with(['user', 'book'])
+                    ->where('status_peminjaman', $status)
+                    ->where('status_peminjaman', '!=', 'dikembalikan') 
+                    ->latest()
+                    ->paginate(10);
+
+        return view('admin.md-loan.index', compact('loans', 'status'));
     }
 
     /**
@@ -22,8 +27,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
-        return view('admin.md-book.create',compact('categories'));
+        //
     }
 
     /**

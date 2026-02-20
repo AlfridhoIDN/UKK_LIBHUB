@@ -8,7 +8,7 @@
             <p class="text-sm text-slate-500 font-medium">Manajemen seluruh pustaka dan literasi digital.</p>
         </div>
         <div>
-            <a href="#" class="flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-2xl font-bold text-sm transition shadow-lg shadow-emerald-200 uppercase tracking-wider">
+            <a href="{{ route('book.create') }}" class="flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-2xl font-bold text-sm transition shadow-lg shadow-emerald-200 uppercase tracking-wider">
                 <i class="fa-solid fa-plus text-xs"></i>
                 Tambah Buku Baru
             </a>

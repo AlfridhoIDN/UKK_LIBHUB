@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\LoanController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [DashboardController::class, 'index'])->name('landingpage');
@@ -55,6 +56,9 @@ Route::group(['prefix' => '/'], function(){
             Route::delete('category-data/delete/{id}', [CategoryController::class, 'destroy'])->name('category.delete');
 
             Route::get('book-data', [BookController::class, 'index'])->name('book.index');
+            Route::get('book-data/create', [BookController::class, 'create'])->name('book.create');
+
+            Route::get('loan-data',[LoanController::class, 'index'])->name('loan.index');
         });
     // });
 });

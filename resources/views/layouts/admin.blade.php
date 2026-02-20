@@ -8,6 +8,7 @@
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <style>
         [x-cloak] { display: none !important; }
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
@@ -58,7 +59,7 @@
                 <div class="h-6 border-b border-emerald-800/50 mb-4"></div>
                 <p x-show="sidebarOpen" x-cloak class="text-[10px] font-bold text-emerald-300/50 uppercase tracking-[0.2em] px-4 mb-2">Transaksi</p>
 
-                <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-2xl hover:bg-emerald-800 transition group">
+                <a href="{{ route('loan.index') }}" class="flex items-center gap-4 px-4 py-3 rounded-2xl hover:bg-emerald-800 transition group">
                     <svg class="w-6 h-6 text-emerald-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                     <span x-show="sidebarOpen" x-cloak class="font-bold text-sm">Peminjaman</span>
                 </a>
