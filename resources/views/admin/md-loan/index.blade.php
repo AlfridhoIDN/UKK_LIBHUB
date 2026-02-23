@@ -2,7 +2,6 @@
 
 @section('admin-content')
 <div class="space-y-6">
-    {{-- Header Section --}}
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
             <h1 class="text-2xl font-black text-slate-800 tracking-tight">Manajemen Peminjaman</h1>
@@ -10,26 +9,21 @@
         </div>
     </div>
 
-    {{-- Sub-Navigation (Tabs) --}}
     <div class="flex items-center gap-2 bg-slate-100/50 p-1.5 rounded-[2rem] w-fit border border-slate-100">
-        {{-- {{ route('peminjaman.index', ['status' => 'pending']) }} --}}
-        <a href="#" 
+        <a href="{{ route('loan.index', ['status' => 'pending']) }}" 
            class="px-8 py-3 rounded-[1.8rem] text-xs font-black uppercase tracking-widest transition-all {{ $status == 'pending' ? 'bg-white text-emerald-600 shadow-sm border border-slate-100' : 'text-slate-400 hover:text-slate-600' }}">
             Request
         </a>
-        {{-- {{ route('peminjaman.index', ['status' => 'accepted']) }} --}}
-        <a href="#" 
+        <a href="{{ route('loan.index', ['status' => 'accepted']) }}" 
            class="px-8 py-3 rounded-[1.8rem] text-xs font-black uppercase tracking-widest transition-all {{ $status == 'accepted' ? 'bg-white text-emerald-600 shadow-sm border border-slate-100' : 'text-slate-400 hover:text-slate-600' }}">
             Dipinjam
         </a>
-        {{-- {{ route('peminjaman.index', ['status' => 'rejected']) }} --}}
-        <a href="#" 
+        <a href="{{ route('loan.index', ['status' => 'rejected']) }}" 
            class="px-8 py-3 rounded-[1.8rem] text-xs font-black uppercase tracking-widest transition-all {{ $status == 'rejected' ? 'bg-white text-emerald-600 shadow-sm border border-slate-100' : 'text-slate-400 hover:text-slate-600' }}">
             Ditolak
         </a>
     </div>
 
-    {{-- Main Table Card --}}
     <div class="bg-white rounded-[2rem] border border-slate-100 shadow-sm overflow-hidden">
         <div class="overflow-x-auto">
             <table class="w-full text-left">

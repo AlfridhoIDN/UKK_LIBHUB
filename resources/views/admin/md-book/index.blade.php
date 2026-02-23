@@ -57,8 +57,8 @@
                         </td>
                         <td class="px-6 py-5">
                             <div class="relative w-16 h-24 overflow-hidden rounded-xl shadow-md group-hover:shadow-emerald-100 transition duration-300">
-                                @if($book->cover)
-                                    <img src="{{ asset('storage/' . $book->cover) }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Cover">
+                                @if($book->cover_image)
+                                    <img src="{{ asset('storage/' . $book->cover_image) }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" alt="Cover">
                                 @else
                                     <div class="w-full h-full bg-slate-100 flex items-center justify-center">
                                         <i class="fa-solid fa-book text-slate-300 text-xl"></i>
@@ -84,13 +84,13 @@
                         </td>
                         <td class="px-6 py-5">
                             <div class="flex justify-center gap-2">
-                                <a href="#" class="w-9 h-9 flex items-center justify-center text-emerald-500 bg-white border border-slate-100 rounded-xl hover:bg-emerald-500 hover:text-white transition shadow-sm" title="Detail Buku">
+                                <a href="{{ route('book.show', $book->id) }}" class="w-9 h-9 flex items-center justify-center text-emerald-500 bg-white border border-slate-100 rounded-xl hover:bg-emerald-500 hover:text-white transition shadow-sm" title="Detail Buku">
                                     <i class="fa-solid fa-eye text-xs"></i>
                                 </a>
-                                <a href="#" class="w-9 h-9 flex items-center justify-center text-blue-500 bg-white border border-slate-100 rounded-xl hover:bg-blue-500 hover:text-white transition shadow-sm" title="Edit Buku">
+                                <a href="{{ route('book.edit', $book->id) }}" class="w-9 h-9 flex items-center justify-center text-blue-500 bg-white border border-slate-100 rounded-xl hover:bg-blue-500 hover:text-white transition shadow-sm" title="Edit Buku">
                                     <i class="fa-solid fa-pen-to-square text-xs"></i>
                                 </a>
-                                <form action="#" method="POST" onsubmit="return confirm('Hapus buku ini dari koleksi?')">
+                                <form action="{{ route('book.delete', $book->id) }}" method="POST" onsubmit="return confirm('Hapus buku ini dari koleksi?')">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="w-9 h-9 flex items-center justify-center text-red-500 bg-white border border-slate-100 rounded-xl hover:bg-red-500 hover:text-white transition shadow-sm" title="Hapus Buku">

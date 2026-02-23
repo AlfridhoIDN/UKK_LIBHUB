@@ -11,7 +11,7 @@ class LoanController extends Controller
      */
     public function index(Request $request)
     {
-        $status = $request->query('status', 'pending'); // default ke request
+        $status = $request->query('status', 'pending');
         
         $loans = Loan::with(['user', 'book'])
                     ->where('status_peminjaman', $status)

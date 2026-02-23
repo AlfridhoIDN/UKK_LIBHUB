@@ -13,7 +13,7 @@
         </div>
     </div>
 
-    <form action="#" method="POST" enctype="multipart/form-data" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <form action="{{ route('book.store') }}" method="POST" enctype="multipart/form-data" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         @csrf
         
         {{-- Sidebar: Cover Image Upload --}}
@@ -130,6 +130,18 @@
                                 class="w-full pl-12 pr-6 py-4 bg-slate-50 border-2 border-transparent focus:border-emerald-500 focus:bg-white rounded-2xl text-slate-800 font-bold transition-all outline-none" required>
                         </div>
                         @error('penerbit') <p class="text-rose-500 text-xs mt-1">{{ $message }}</p> @enderror
+                    </div>
+
+                    <div class="md:col-span-2 group mt-6">
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] block mb-2 ml-1">Deskripsi / Sinopsis Buku</label>
+                        <div class="relative">
+                            <span class="absolute top-4 left-5 text-emerald-500">
+                                <i class="fa-solid fa-align-left text-xs"></i>
+                            </span>
+                            <textarea name="deskripsi" rows="5" placeholder="Tuliskan ringkasan atau deskripsi buku di sini..." 
+                                class="w-full pl-12 pr-6 py-4 bg-slate-50 border-2 border-transparent focus:border-emerald-500 focus:bg-white rounded-2xl text-slate-800 font-medium transition-all outline-none resize-none shadow-sm">{{ old('deskripsi') }}</textarea>
+                        </div>
+                        @error('deskripsi') <p class="text-rose-500 text-xs mt-1">{{ $message }}</p> @enderror
                     </div>
                 </div>
 

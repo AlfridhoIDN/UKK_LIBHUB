@@ -46,40 +46,64 @@
         </div>
 
         <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
-            <div class="group">
-                <div class="relative aspect-[3/4.5] bg-emerald-100 rounded-[2.5rem] overflow-hidden mb-5 shadow-sm group-hover:shadow-2xl group-hover:shadow-emerald-200 transition-all duration-500">
-                    
-                    <button class="absolute top-5 right-5 z-20 p-3 bg-white/90 backdrop-blur-md rounded-2xl text-emerald-300 hover:text-red-500 transition-all transform translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 shadow-xl">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z"></path></svg>
-                    </button>
+            @forelse ($books as $book)
+                
+                <div class="group">
+                    <div class="relative aspect-[3/4.5] bg-emerald-100 rounded-[2.5rem] overflow-hidden mb-5 shadow-sm group-hover:shadow-2xl group-hover:shadow-emerald-200 transition-all duration-500">
+                        <div class="absolute top-6 left-6">
+                            @forelse($book->categories as $category)
+                                <span class="px-4 py-2 bg-emerald-500/90 backdrop-blur-md text-white text-[10px] font-black rounded-xl uppercase tracking-widest shadow-lg">
+                                    {{ $category->nama_kategori}}
+                                </span>
+                            @empty
+                                <span class="text-slate-400">Tidak ada kategori</span>
+                            @endforelse
+                        </div>
+                        
+                        <button class="absolute top-5 right-5 z-20 p-3 bg-white/90 backdrop-blur-md rounded-2xl text-emerald-300 hover:text-red-500 transition-all transform translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 shadow-xl">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z"></path></svg>
+                        </button>
 
-                    <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&q=80&w=400" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Cover">
+                        @if($book->cover_image)
+                        <img src="{{ asset('storage/' .$book->cover_image) }}" class="w-full h-full object-cover" alt="Cover">
+                        @else
+                            <div class="w-full h-full bg-slate-200 flex flex-col items-center justify-center text-slate-400">
+                                <i class="fa-solid fa-book text-6xl mb-4"></i>
+                                <span class="text-[10px] font-black uppercase tracking-widest">No Cover Available</span>
+                            </div>
+                        @endif
+                        <div class="absolute inset-x-0 bottom-0 p-5 translate-y-full group-hover:translate-y-0 transition-transform duration-500 bg-gradient-to-t from-emerald-950/80 to-transparent">
+                            <button class="w-full bg-white text-emerald-900 py-3 rounded-2xl font-black text-sm shadow-xl active:scale-95 transition">PINJAM BUKU</button>
+                        </div>
+                    </div>
                     
-                    <div class="absolute inset-x-0 bottom-0 p-5 translate-y-full group-hover:translate-y-0 transition-transform duration-500 bg-gradient-to-t from-emerald-950/80 to-transparent">
-                        <button class="w-full bg-white text-emerald-900 py-3 rounded-2xl font-black text-sm shadow-xl active:scale-95 transition">PINJAM BUKU</button>
+                    <div class="px-2">
+                        <h3 class="font-black text-xl text-emerald-900 leading-tight group-hover:text-emerald-500 transition line-clamp-1">{{ $book->judul }}</h3>
+                        <p class="text-emerald-700/60 font-bold mt-1 text-sm uppercase tracking-wider">{{ $book->penulis }}</p>
                     </div>
                 </div>
-                
-                <div class="px-2">
-                    <h3 class="font-black text-xl text-emerald-900 leading-tight group-hover:text-emerald-500 transition line-clamp-1">Filosofi Teras</h3>
-                    <p class="text-emerald-700/60 font-bold mt-1 text-sm uppercase tracking-wider">Henry Manampiring</p>
+            @empty
+                <div class="flex flex-col items-center">
+                    <div class="w-20 h-20 bg-slate-50 rounded-[2rem] flex items-center justify-center mb-4 text-slate-200">
+                        <i class="fa-solid fa-book-open text-3xl"></i>
+                    </div>
+                    <p class="text-xs font-black text-slate-300 uppercase tracking-[0.2em]">Koleksi buku masih kosong</p>
                 </div>
-            </div>
-            </div>
+            @endforelse
+        </div>
     </section>
 
     <script>
     function closeAlert(id) {
         const alert = document.getElementById(id);
         if (alert) {
-            alert.style.transform = "translateY(-20px) translateX(-50%)"; // Tetap center saat naik
+            alert.style.transform = "translateY(-20px) translateX(-50%)"; 
             alert.style.opacity = "0";
             alert.style.transition = "all 0.6s cubic-bezier(0.4, 0, 0.2, 1)";
             setTimeout(() => alert.remove(), 600);
         }
     }
 
-    // Auto-hide setelah 6 detik agar user sempat membaca di Landing Page
     setTimeout(() => {
         closeAlert('alert-error');
     }, 6000);

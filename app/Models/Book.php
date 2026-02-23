@@ -12,6 +12,12 @@ class Book extends Model
     'penulis',
     'penerbit',
     'tahun_terbit',
-    'cover_image'
+    'cover_image',
+    'deskripsi'
     ];
+    
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'kategori_buku_relasi', 'buku_id', 'kategori_id');
+    }
 }

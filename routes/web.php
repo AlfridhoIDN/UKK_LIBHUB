@@ -57,6 +57,13 @@ Route::group(['prefix' => '/'], function(){
 
             Route::get('book-data', [BookController::class, 'index'])->name('book.index');
             Route::get('book-data/create', [BookController::class, 'create'])->name('book.create');
+            Route::post('book-data/create', [BookController::class,'store'])->name('book.store');
+
+            Route::get('book-data/edit/{id}', [BookController::class, 'edit'])->name('book.edit');
+            Route::put('book-data/edit/{id}', [BookController::class, 'update'])->name('book.update');
+
+            Route::get('book-data/detail-book/{id}',[BookController::class,'show'])->name('book.show');
+            Route::delete('book-data/delete/{id}',[BookController::class,'destroy'])->name('book.delete');
 
             Route::get('loan-data',[LoanController::class, 'index'])->name('loan.index');
         });

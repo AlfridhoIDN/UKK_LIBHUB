@@ -2,7 +2,6 @@
 
 @section('admin-content')
 <div class="space-y-6 max-w-6xl mx-auto">
-    {{-- Header & Actions --}}
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div class="flex items-center gap-4">
             <a href="{{ route('book.index') }}" class="w-10 h-10 flex items-center justify-center bg-white border border-slate-200 rounded-xl text-slate-400 hover:text-emerald-600 hover:border-emerald-100 transition shadow-sm">
@@ -15,7 +14,7 @@
         </div>
         
         <div class="flex items-center gap-2">
-            <a href="#" class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-2xl font-bold text-xs transition shadow-lg shadow-blue-200 uppercase tracking-widest">
+            <a href="{{ route('book.edit', $book->id) }}" class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-2xl font-bold text-xs transition shadow-lg shadow-blue-200 uppercase tracking-widest">
                 <i class="fa-solid fa-pen-to-square"></i>
                 Edit Buku
             </a>
@@ -23,7 +22,6 @@
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        {{-- Sisi Kiri: Visual Cover --}}
         <div class="lg:col-span-4 space-y-6">
             <div class="bg-white p-4 rounded-[3rem] border border-slate-100 shadow-sm relative overflow-hidden">
                 <div class="aspect-[3/4.5] rounded-[2.5rem] overflow-hidden shadow-2xl relative group">
@@ -36,16 +34,18 @@
                         </div>
                     @endif
                     
-                    {{-- Badge Kategori --}}
                     <div class="absolute top-6 left-6">
-                        <span class="px-4 py-2 bg-emerald-500/90 backdrop-blur-md text-white text-[10px] font-black rounded-xl uppercase tracking-widest shadow-lg">
-                            {{ $book->category->nama_kategori ?? 'Uncategorized' }}
-                        </span>
+                        @forelse($book->categories as $category)
+                            <span class="px-4 py-2 bg-emerald-500/90 backdrop-blur-md text-white text-[10px] font-black rounded-xl uppercase tracking-widest shadow-lg">
+                                {{ $category->nama_kategori}}
+                            </span>
+                        @empty
+                            <span class="text-slate-400">Tidak ada kategori</span>
+                        @endforelse
                     </div>
                 </div>
             </div>
 
-            {{-- Info Tambahan (Status/Tersedia) --}}
             <div class="bg-emerald-50/50 border border-emerald-100 p-6 rounded-[2rem] flex items-center justify-between">
                 <div>
                     <p class="text-[10px] font-black text-emerald-600/60 uppercase tracking-widest mb-1">Status Buku</p>
@@ -57,19 +57,17 @@
             </div>
         </div>
 
-        {{-- Sisi Kanan: Detail Informasi --}}
         <div class="lg:col-span-8 space-y-6">
             <div class="bg-white p-8 md:p-12 rounded-[3rem] border border-slate-100 shadow-sm relative overflow-hidden h-full">
                 <div class="absolute -top-10 -right-10 w-40 h-40 bg-slate-50 rounded-full blur-3xl"></div>
 
                 <div class="relative space-y-10">
-                    {{-- Judul & Penulis --}}
                     <div>
                         <span class="text-[10px] font-black text-emerald-500 uppercase tracking-[0.3em] block mb-2">Informasi Utama</span>
                         <h2 class="text-4xl md:text-5xl font-black text-slate-800 leading-[1.1] tracking-tighter mb-4">{{ $book->judul }}</h2>
                         <div class="flex items-center gap-3">
                             <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-400">
-                                <i class="fa-solid fa-user-nib text-sm"></i>
+                                <i class="fa-solid fa-user text-sm"></i>
                             </div>
                             <div>
                                 <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Penulis</p>
@@ -80,9 +78,7 @@
 
                     <div class="h-px bg-slate-50 w-full"></div>
 
-                    {{-- Metadata Grid --}}
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        {{-- Penerbit --}}
                         <div class="flex items-start gap-4">
                             <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-500 flex items-center justify-center flex-shrink-0">
                                 <i class="fa-solid fa-building-columns text-lg"></i>
@@ -93,7 +89,6 @@
                             </div>
                         </div>
 
-                        {{-- Tahun Terbit --}}
                         <div class="flex items-start gap-4">
                             <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-500 flex items-center justify-center flex-shrink-0">
                                 <i class="fa-solid fa-calendar-check text-lg"></i>
@@ -104,18 +99,20 @@
                             </div>
                         </div>
 
-                        {{-- Kategori --}}
                         <div class="flex items-start gap-4">
                             <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-500 flex items-center justify-center flex-shrink-0">
                                 <i class="fa-solid fa-tags text-lg"></i>
                             </div>
                             <div>
                                 <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Kategori</p>
-                                <p class="text-base font-bold text-slate-800">{{ $book->category->nama_kategori ?? '-' }}</p>
+                                @forelse($book->categories as $category)
+                                <p class="text-base font-bold text-slate-800">{{ $category->nama_kategori}}</p>
+                                @empty
+                                <p class="text-base font-bold text-slate-800">Tidak ada Kategori</p>
+                                @endforelse
                             </div>
                         </div>
 
-                        {{-- ID Koleksi --}}
                         <div class="flex items-start gap-4">
                             <div class="w-12 h-12 rounded-2xl bg-slate-50 text-slate-400 flex items-center justify-center flex-shrink-0">
                                 <i class="fa-solid fa-hashtag text-lg"></i>
@@ -126,8 +123,23 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] font-black text-emerald-500 uppercase tracking-[0.3em]">Sinopsis & Deskripsi</span>
+                            <div class="h-[1px] flex-1 bg-slate-100"></div>
+                        </div>
+                        <div class="bg-slate-50/50 rounded-3xl p-6 border border-slate-50">
+                            <p class="text-slate-600 leading-relaxed text-sm">
+                                @if($book->deskripsi)
+                                    {{ $book->deskripsi }}
+                                @else
+                                    <span class="italic text-slate-400">Tidak ada deskripsi tersedia untuk buku ini.</span>
+                                @endif
+                            </p>
+                        </div>
+                    </div>
 
-                    {{-- Footer Note --}}
                     <div class="pt-6">
                         <p class="text-[10px] text-slate-400 font-medium italic">
                             * Data ini dicatatkan secara digital pada sistem LIBHUB. Perubahan pada metadata buku hanya dapat dilakukan melalui otoritas Admin atau Staff.

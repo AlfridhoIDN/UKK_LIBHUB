@@ -115,10 +115,45 @@
             </header>
 
             <div class="p-8 flex-1">
+                <div class="fixed top-4 left-1/2 -translate-x-1/2 z-[100] w-[90%] md:w-[400px]">
+                @if (session('success'))
+                    <div id="alert-success" class="flex items-start p-4 mb-4 text-emerald-800 rounded-3xl bg-white border border-emerald-100 shadow-[0_15px_30px_rgba(16,_185,_129,_0.15)]">
+                        <div class="flex-shrink-0 w-10 h-10 bg-emerald-50 text-emerald-500 rounded-2xl flex items-center justify-center mr-3">
+                            <i class="fa-solid fa-circle-check"></i>
+                        </div>
+                        <div class="flex-1 pt-0.5">
+                            <p class="text-[10px] font-black uppercase tracking-[0.1em] text-emerald-400 leading-none mb-1">Berhasil</p>
+                            <div class="text-sm font-bold leading-tight">{{ session('success') }}</div>
+                        </div>
+                        <button type="button" onclick="closeAlert('alert-success')" class="ml-2 text-emerald-300 hover:text-emerald-500 transition">
+                            <i class="fa-solid fa-xmark text-sm"></i>
+                        </button>
+                    </div>
+                @endif
+                </div>
                 @yield('admin-content')
             </div>
         </main>
 
     </div>
 </body>
+<script>
+    function closeAlert(id) {
+        const alert = document.getElementById(id);
+        if (alert) {
+            alert.style.transform = "translateY(-20px)";
+            alert.style.opacity = "0";
+            alert.style.transition = "all 0.5s ease";
+            setTimeout(() => alert.remove(), 500);
+        }
+    }
+
+    // Auto close setelah 5 detik
+    setTimeout(() => {
+        const errorAlert = document.getElementById('alert-error');
+        const successAlert = document.getElementById('alert-success');
+        if(errorAlert) closeAlert('alert-error');
+        if(successAlert) closeAlert('alert-success');
+    }, 5000);
+</script>
 </html>

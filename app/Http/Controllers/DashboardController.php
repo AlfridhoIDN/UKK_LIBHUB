@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Book;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -11,11 +12,14 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('alluser.index');
+        $books = Book::with('categories')->latest()->paginate(10);
+        return view('alluser.index',compact('books'));
     }
 
     public function category(){
-        return view('alluser.category');
+        $categories = Category::all();
+        $books = Book::with('categories')->paginate(10);
+        return view('alluser.category',compact('categories', 'books'));
     }
 
     /**

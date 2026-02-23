@@ -13,17 +13,15 @@
         </div>
     </div>
 
-    <form action="#" method="POST" enctype="multipart/form-data" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <form action="{{ route('book.update', $book->id) }}" method="POST" enctype="multipart/form-data" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         @csrf
         @method('PUT')
         
-        {{-- Sidebar: Cover Image Update --}}
         <div class="space-y-6">
             <div class="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-sm text-center">
                 <label class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] block mb-6">Cover Buku</label>
                 
                 <div class="relative group mx-auto w-full aspect-[3/4] bg-slate-50 rounded-[2rem] border-2 border-dashed border-slate-200 overflow-hidden flex flex-col items-center justify-center transition-all hover:border-blue-300">
-                    {{-- Preview Container --}}
                     <img id="cover-preview" 
                          src="{{ $book->cover_image ? asset('storage/' . $book->cover_image) : '#' }}" 
                          alt="Preview" 
@@ -46,12 +44,10 @@
             </div>
         </div>
 
-        {{-- Main Form Content --}}
         <div class="lg:col-span-2 space-y-6">
             <div class="bg-white p-8 md:p-10 rounded-[2.5rem] border border-slate-100 shadow-sm">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     
-                    {{-- Judul Buku (Full Width) --}}
                     <div class="md:col-span-2 group">
                         <label class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] block mb-2 ml-1">Judul Buku</label>
                         <input type="text" name="judul" value="{{ old('judul', $book->judul) }}" 
@@ -59,7 +55,6 @@
                         @error('judul') <p class="text-rose-500 text-xs mt-1">{{ $message }}</p> @enderror
                     </div>
 
-                    {{-- Penulis --}}
                     <div class="group">
                         <label class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] block mb-2 ml-1">Penulis</label>
                         <div class="relative">
@@ -72,7 +67,6 @@
                         @error('penulis') <p class="text-rose-500 text-xs mt-1">{{ $message }}</p> @enderror
                     </div>
 
-                    {{-- Kategori (Custom Select / Dropdown) --}}
                     <div class="group">
                         <label class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] block mb-2 ml-1">Kategori</label>
                         <div class="relative">
@@ -81,7 +75,8 @@
                             </span>
                             <select name="category_id" class="w-full pl-12 pr-10 py-4 bg-slate-50 border-2 border-transparent focus:border-blue-500 focus:bg-white rounded-2xl text-slate-800 font-bold transition-all outline-none appearance-none cursor-pointer" required>
                                 @foreach($categories as $category)
-                                    <option value="{{ $category->id }}" {{ (old('category_id', $book->category_id) == $category->id) ? 'selected' : '' }}>
+                                    <option value="{{ $category->id }}" 
+                                        {{ (old('category_id') == $category->id || $book->categories->contains($category->id)) ? 'selected' : '' }}>
                                         {{ $category->nama_kategori }}
                                     </option>
                                 @endforeach
@@ -93,7 +88,6 @@
                         @error('category_id') <p class="text-rose-500 text-xs mt-1">{{ $message }}</p> @enderror
                     </div>
 
-                    {{-- Penerbit --}}
                     <div class="group">
                         <label class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] block mb-2 ml-1">Penerbit</label>
                         <div class="relative">
@@ -106,7 +100,6 @@
                         @error('penerbit') <p class="text-rose-500 text-xs mt-1">{{ $message }}</p> @enderror
                     </div>
 
-                    {{-- Tahun Terbit --}}
                     <div class="group">
                         <label class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] block mb-2 ml-1">Tahun Terbit</label>
                         <div class="relative">
@@ -117,6 +110,18 @@
                                 class="w-full pl-12 pr-6 py-4 bg-slate-50 border-2 border-transparent focus:border-blue-500 focus:bg-white rounded-2xl text-slate-800 font-bold transition-all outline-none" required>
                         </div>
                         @error('tahun_terbit') <p class="text-rose-500 text-xs mt-1">{{ $message }}</p> @enderror
+                    </div>
+                    
+                    <div class="md:col-span-2 group mt-6">
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] block mb-2 ml-1">Deskripsi / Sinopsis Buku</label>
+                        <div class="relative">
+                            <span class="absolute top-4 left-5 text-blue-500">
+                                <i class="fa-solid fa-align-left text-xs"></i>
+                            </span>
+                            <textarea name="deskripsi" rows="5" placeholder="Tuliskan ringkasan atau deskripsi buku di sini..." 
+                                class="w-full pl-12 pr-6 py-4 bg-slate-50 border-2 border-transparent focus:border-blue-500 focus:bg-white rounded-2xl text-slate-800 font-medium transition-all outline-none resize-none shadow-sm">{{ old('deskripsi', $book->deskripsi) }}</textarea>
+                        </div>
+                        @error('deskripsi') <p class="text-rose-500 text-xs mt-1">{{ $message }}</p> @enderror
                     </div>
                 </div>
 

@@ -35,7 +35,7 @@ class CategoryController extends Controller
 
         Category::create($request->all());
 
-        return redirect()->route('category.index')->with('success', 'You have been added successfully');
+        return redirect()->route('category.index')->with('success', 'Data kategori berhasil ditambahkan!');
     }
 
     /**
@@ -69,7 +69,7 @@ class CategoryController extends Controller
         $categories->nama_kategori = $request->nama_kategori;
         $categories->save();
 
-        return redirect()->route('category.index')->with('success', 'You have been updated successfully');
+        return redirect()->route('category.index')->with('success', 'Data kategori berhasil diupdate!');
     }
 
     /**
@@ -80,6 +80,6 @@ class CategoryController extends Controller
         $categories = Category::findOrFail($id);
 
         $categories->delete();
-        return redirect()->route('category.index')->with('success', 'You have been deleted successfully');
+        return redirect()->route('category.index')->with('success', 'Data kategori berhasil dihapus!');
     }
 }

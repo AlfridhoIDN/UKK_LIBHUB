@@ -45,11 +45,9 @@ class UserController extends Controller
         try {
             $googleUser = Socialite::driver('google')->user();
 
-            // Cari user berdasarkan email. Nggak perlu database baru, pakai yang sudah ada.
             $user = User::where('email', $googleUser->getEmail())->first();
 
             if ($user) {
-                // Jika user sudah ada, update data Google-nya (opsional)
                 $user->update([
                     'google_id' => $googleUser->getID(),
                 ]);
@@ -59,7 +57,7 @@ class UserController extends Controller
                     'nama_lengkap' => $googleUser->getName(),    
                     'email' => $googleUser->getEmail(),
                     'google_id' => $googleUser->getID(),
-                    'password' => Hash::make(str()->random(24)), // Password acak agar aman
+                    'password' => Hash::make(str()->random(24)),
                 ]);
             }
 
@@ -87,21 +85,16 @@ class UserController extends Controller
             return redirect()->route('login')->withInput()->withErrors($validator);
         }
 
-        //cek kecocokan email dan password
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            // Mengecek peran pengguna setelah login
             $user = Auth::user();
 
             if ($user->role === 'admin') {
-                // Jika pengguna adalah admin, arahkan ke dashboard admin
                 return redirect()->route('admin.dashboard');
             }
 
-            // Jika pengguna adalah user biasa, arahkan ke halaman home
             return redirect()->route('landingpage');
         } else {
-            // Jika login gagal, kembalikan ke halaman login dengan pesan error
             return redirect()->route('login')->with('error', 'Invalid email or password');
         }
 
@@ -130,7 +123,6 @@ class UserController extends Controller
             return redirect()->route('account.create')->withInput()->withErrors($validator);
         }
 
-        //kalo validasi berhasil, bakal proses registrasi disini
         $user = new User();
         $user->nama_lengkap = $request->nama_lengkap;
         $user->username = $request->nama_lengkap;

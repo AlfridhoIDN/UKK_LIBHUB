@@ -6,7 +6,7 @@
     <div class="flex flex-col md:flex-row gap-8">
         
         <aside 
-    x-show="true" {{-- Biar tetep ada di DOM untuk desktop --}}
+    x-show="true"
     :class="mobileFilterOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'"
     class="fixed inset-y-0 left-0 z-[70] w-80 bg-white p-8 shadow-2xl transition-transform duration-300 md:static md:w-64 md:p-0 md:bg-transparent md:shadow-none md:z-0">
             
@@ -26,13 +26,13 @@
 
                 <div class="space-y-6">
                     <div class="space-y-4">
-                        <p class="font-black text-emerald-900 text-[10px] uppercase tracking-[0.2em]">Genre Utama</p>
+                        <p class="font-black text-emerald-900 text-[10px] uppercase tracking-[0.2em]">Kategori Utama</p>
                         <div class="grid grid-cols-1 gap-3">
-                            @foreach(['Romance', 'Action', 'Sci-Fi', 'Horror', 'Self Dev', 'History'] as $genre)
+                            @foreach($categories as $category)
                             <label class="flex items-center group cursor-pointer p-2 -ml-2 rounded-xl hover:bg-emerald-50 transition">
-                                <input type="checkbox" name="genre" value="{{ strtolower($genre) }}" 
-                                       class="genre-checkbox h-5 w-5 rounded-md border-emerald-200 text-emerald-600 focus:ring-emerald-500 transition">
-                                <span class="ml-3 text-emerald-800 font-bold group-hover:text-emerald-600 transition">{{ $genre }}</span>
+                                <input type="checkbox" name="category" value="{{ strtolower($category->nama_kategori) }}" 
+                                       class="category-checkbox h-5 w-5 rounded-md border-emerald-200 text-emerald-600 focus:ring-emerald-500 transition">
+                                <span class="ml-3 text-emerald-800 font-bold group-hover:text-emerald-600 transition">{{ $category->nama_kategori }}</span>
                             </label>
                             @endforeach
                         </div>
@@ -71,18 +71,44 @@
             </div>
 
             <div id="book-container" class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
-                @for ($i = 1; $i <= 8; $i++)
-                <div class="book-item group" data-genre="{{ $i % 2 == 0 ? 'romance' : 'action' }}">
+                @forelse ($books as $book)
+                <div class="book-item group" data-category="{{ $book->categories->pluck('nama_kategori')->map(fn($item) => strtolower($item))->join(',') }}">
                     <div class="relative aspect-[3/4.5] bg-emerald-100 rounded-[2rem] overflow-hidden mb-4 shadow-sm group-hover:shadow-2xl group-hover:shadow-emerald-200 transition-all duration-500">
-                        <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&q=80&w=400" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                        <div class="absolute z-20 top-5 left-5 transition-all transform translate-y-2 group-hover:translate-y-0 group-hover:opacity-100">
+                            @forelse($book->categories as $category)
+                                <span class="px-4 py-2 bg-emerald-500/90 backdrop-blur-md text-white text-[10px] font-black rounded-xl uppercase tracking-widest shadow-lg">
+                                    {{ $category->nama_kategori}}
+                                </span>
+                            @empty
+                                <span class="text-slate-400">Tidak ada kategori</span>
+                            @endforelse
+                        </div>
+                        <button class="absolute top-5 right-5 z-20 p-3 bg-white/90 backdrop-blur-md rounded-2xl text-emerald-300 hover:text-red-500 transition-all transform translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 shadow-xl">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z"></path></svg>
+                        </button>
+                        @if($book->cover_image)
+                        <img src="{{ asset('storage/' .$book->cover_image) }}" class="w-full h-full object-cover" alt="Cover">
+                        @else
+                            <div class="w-full h-full bg-slate-200 flex flex-col items-center justify-center text-slate-400">
+                                <i class="fa-solid fa-book text-6xl mb-4"></i>
+                                <span class="text-[10px] font-black uppercase tracking-widest">No Cover Available</span>
+                            </div>
+                        @endif
                         <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
                              <button class="w-full bg-white text-emerald-900 py-3 rounded-xl font-black text-xs tracking-wider">DETAIL BUKU</button>
                         </div>
                     </div>
-                    <h3 class="font-black text-emerald-950 leading-tight line-clamp-1 group-hover:text-emerald-500 transition">Buku {{ $i % 2 == 0 ? 'Romance' : 'Action' }}</h3>
-                    <p class="text-emerald-400 font-bold text-[10px] uppercase tracking-widest mt-1">{{ $i % 2 == 0 ? 'Romance' : 'Action' }}</p>
+                    <h3 class="font-black text-emerald-950 leading-tight line-clamp-1 group-hover:text-emerald-500 transition">{{$book->judul}}</h3>
+                    <p class="text-emerald-400 font-bold text-[10px] uppercase tracking-widest mt-1">{{ $book->penulis}}</p>
                 </div>
-                @endfor
+                @empty
+                    <div class="flex flex-col items-center">
+                        <div class="w-20 h-20 bg-slate-50 rounded-[2rem] flex items-center justify-center mb-4 text-slate-200">
+                            <i class="fa-solid fa-book-open text-3xl"></i>
+                        </div>
+                        <p class="text-xs font-black text-slate-300 uppercase tracking-[0.2em]">Koleksi buku masih kosong</p>
+                    </div>
+                @endforelse
             </div>
         </div>
     </div>
@@ -90,19 +116,19 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-    const checkboxes = document.querySelectorAll('.genre-checkbox');
+    const checkboxes = document.querySelectorAll('.category-checkbox');
     const books = document.querySelectorAll('.book-item');
     const resetBtn = document.getElementById('reset-filter');
     const countDisplay = document.getElementById('filter-count');
 
     function updateFilter() {
-        const activeGenres = Array.from(checkboxes).filter(c => c.checked).map(c => c.value);
+        const activeCategory = Array.from(checkboxes).filter(c => c.checked).map(c => c.value);
         
-        countDisplay.innerText = activeGenres.length > 0 ? activeGenres.join(' + ') : "Semua Kategori";
+        countDisplay.innerText = activeCategory.length > 0 ? activeCategory.join(' + ') : "Semua Kategori";
 
         books.forEach(book => {
-            const genre = book.getAttribute('data-genre');
-            if (activeGenres.length === 0 || activeGenres.includes(genre)) {
+            const category = book.getAttribute('data-category');
+            if (activeCategory.length === 0 || activeCategory.includes(category)) {
                 book.style.display = 'block';
                 book.classList.add('animate-fade-in');
             } else {

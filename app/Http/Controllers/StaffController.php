@@ -53,7 +53,7 @@ class StaffController extends Controller
         $user->alamat = $request->alamat;
         $user->save();
         
-        return redirect()->route('admin.staff.index')->with('success', 'You have been registered successfully');
+        return redirect()->route('admin.staff.index')->with('success', 'Data staff berhasil ditambahkan!');
         
     }
 
