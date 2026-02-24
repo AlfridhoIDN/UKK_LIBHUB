@@ -1,27 +1,26 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Models\Category;
-use Illuminate\Http\Request;
 
-class DashboardController extends Controller
+class UserDashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $books = Book::with('categories')->latest()->paginate(10);
-        return view('alluser.index',compact('books'));
+        return view('user.index');
     }
 
-    public function category(){
-        $categories = Category::all();
-        $books = Book::with('categories')->paginate(10);
-        return view('alluser.category',compact('categories', 'books'));
+    public function favorite()
+    {
+        $favorites = Book::with('categories')->latest()->paginate(10);
+        return view('user.favorite.index',compact('favorites'));
     }
-
     /**
      * Show the form for creating a new resource.
      */
@@ -43,8 +42,7 @@ class DashboardController extends Controller
      */
     public function show(string $id)
     {
-        $book = Book::with('categories')->findOrFail($id);
-        return view('alluser.show',compact('book'));
+        //
     }
 
     /**

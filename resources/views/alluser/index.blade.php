@@ -49,8 +49,9 @@
             @forelse ($books as $book)
                 
                 <div class="group">
+                    <a href="{{ route('landingpage.book', $book->id) }}">
                     <div class="relative aspect-[3/4.5] bg-emerald-100 rounded-[2.5rem] overflow-hidden mb-5 shadow-sm group-hover:shadow-2xl group-hover:shadow-emerald-200 transition-all duration-500">
-                        <div class="absolute top-6 left-6">
+                        <div class="absolute top-5 left-5">
                             @forelse($book->categories as $category)
                                 <span class="px-4 py-2 bg-emerald-500/90 backdrop-blur-md text-white text-[10px] font-black rounded-xl uppercase tracking-widest shadow-lg">
                                     {{ $category->nama_kategori}}
@@ -77,10 +78,31 @@
                         </div>
                     </div>
                     
-                    <div class="px-2">
-                        <h3 class="font-black text-xl text-emerald-900 leading-tight group-hover:text-emerald-500 transition line-clamp-1">{{ $book->judul }}</h3>
-                        <p class="text-emerald-700/60 font-bold mt-1 text-sm uppercase tracking-wider">{{ $book->penulis }}</p>
+                    <div class="px-2 py-3">
+                        {{-- 1. Kategori (Posisi Atas, Abu-abu/Muted) --}}
+                        <p class="text-slate-400 font-bold text-xs mb-1 uppercase tracking-tight">
+                            @forelse($book->categories as $category)
+                                {{ $category->nama_kategori }}{{ !$loop->last ? ', ' : '' }}
+                            @empty
+                                Umum
+                            @endforelse
+                        </p>
+
+                        {{-- 2. Judul (Tebal, Emerald Dark) --}}
+                        <h3 class="font-black text-lg text-emerald-950 leading-tight group-hover:text-emerald-600 transition line-clamp-1">
+                            {{ $book->judul }}
+                        </h3>
+
+                        {{-- 3. Jumlah Favorite (Ikon Hati Emerald) --}}
+                        <div class="flex items-center gap-1.5 mt-2">
+                            <i class="fa-solid fa-heart text-emerald-500 text-sm"></i>
+                            <span class="text-emerald-600 font-black text-sm tracking-tighter">
+                                {{-- Simulasi angka favorite, bisa diganti dengan count data asli --}}
+                                {{ number_format($book->favorites_count ?? rand(100, 999), 0, ',', '.') }}
+                            </span>
+                        </div>
                     </div>
+                </a>
                 </div>
             @empty
                 <div class="flex flex-col items-center">

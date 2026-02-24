@@ -7,13 +7,12 @@ use App\Http\Controllers\StaffController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\LoanController;
+use App\Http\Controllers\UserDashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [DashboardController::class, 'index'])->name('landingpage');
 Route::get('explore-category', [DashboardController::class, 'category'])->name('category');
-Route::get('/test-alert', function() {
-    return redirect()->route('login')->with('error', 'Ini tes alert error!');
-});
+Route::get('book-detail/{id}', [DashboardController::class, 'show'])->name('landingpage.book');
 
 Route::group(['prefix' => '/'], function(){
     Route::group(['middleware' => 'guest'], function(){
@@ -28,6 +27,10 @@ Route::group(['prefix' => '/'], function(){
     });
     // Route::group(['middleware' => 'auth'], function(){
         Route::get('logout',[UserController::class,'logout'])->name('account.logout');
+
+        Route::get('user/settings', [UserDashboardController::class, 'index'])->name('user.dashboard');
+        Route::get('user/favorite', [UserDashboardController::class,'favorite'])->name('user.fav');
+        Route::get('user/history', [UserDashboardController::class,'history'])->name('user.history');
 
         Route::middleware(['admin'])->group(function (){
             Route::get('admin/staff-data',[StaffController::class,'index'])->name('admin.staff.index');
