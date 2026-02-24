@@ -21,6 +21,7 @@ class UserDashboardController extends Controller
         $favorites = Book::with('categories')->latest()->paginate(10);
         return view('user.favorite.index',compact('favorites'));
     }
+    
     /**
      * Show the form for creating a new resource.
      */
