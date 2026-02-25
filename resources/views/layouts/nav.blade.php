@@ -39,7 +39,7 @@
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                                 Profil Saya
                             </a>
-                            <a href="{{ route('user.fav') }}" class="flex items-center gap-3 px-4 py-2.5 text-sm font-bold text-emerald-800 hover:bg-emerald-50 transition">
+                            <a href="{{ route('user.favorite') }}" class="flex items-center gap-3 px-4 py-2.5 text-sm font-bold text-emerald-800 hover:bg-emerald-50 transition">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path></svg>
                                 Favorit
                             </a>
@@ -87,7 +87,7 @@
         
         <div class="pt-4 border-t border-emerald-50">
             @if (Auth::check())
-                <a href="#" class="flex items-center gap-4 p-2">
+                <a href="{{ route('user.dashboard') }}" class="flex items-center gap-4 p-2">
                     <div class="w-12 h-12 bg-emerald-500 rounded-2xl flex items-center justify-center text-white font-black text-xl shadow-lg">
                         {{ strtoupper(substr(Auth::user()->username, 0, 1)) }}
                     </div>

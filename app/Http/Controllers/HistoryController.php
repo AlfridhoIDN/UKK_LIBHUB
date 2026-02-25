@@ -1,20 +1,25 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Loan;
 use Illuminate\Http\Request;
 
-
-class UserDashboardController extends Controller
+class HistoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('user.index');
+        $history = Loan::with('buku')
+        ->where('user_id', auth()->id())
+        ->where('status_peminjaman', 'dikembalikan') 
+        ->orderBy('tanggal_pengembalian', 'desc')
+        ->get();
+
+        return view('user.history.index',compact('history'));
     }
-    
+
     /**
      * Show the form for creating a new resource.
      */

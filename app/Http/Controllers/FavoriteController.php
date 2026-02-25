@@ -3,18 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Book;
+use App\Models\Category;
+use App\Models\Loan;
 
-
-class UserDashboardController extends Controller
+class FavoriteController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('user.index');
+        $favorites = Book::all();
+        return view('user.favorite.index',compact('favorites'));
     }
-    
+
     /**
      * Show the form for creating a new resource.
      */

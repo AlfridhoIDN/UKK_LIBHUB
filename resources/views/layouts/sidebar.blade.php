@@ -16,15 +16,21 @@
                 <span x-show="sidebarOpen" x-transition class="whitespace-nowrap">Akun Ku</span>
             </a>
             
-            <a href="{{ route('user.fav') }}" class="flex items-center gap-4 px-4 py-4 rounded-2xl text-slate-400 hover:bg-slate-50 hover:text-emerald-600 font-bold text-sm transition">
+            <a href="{{ route('user.favorite') }}" class="flex items-center gap-4 px-4 py-4 rounded-2xl text-slate-400 hover:bg-slate-50 hover:text-emerald-600 font-bold text-sm transition">
                 <i class="fa-solid fa-heart text-lg shrink-0"></i>
                 <span x-show="sidebarOpen" x-transition class="whitespace-nowrap">Favorite</span>
             </a>
+            
+            <a href="{{ route('user.loan') }}" class="flex items-center gap-4 px-4 py-4 rounded-2xl text-slate-400 hover:bg-slate-50 hover:text-emerald-600 font-bold text-sm transition">
+                <i class="fa-solid fa-hand-holding-heart text-lg shrink-0"></i>
+                <span x-show="sidebarOpen" x-transition class="whitespace-nowrap">Peminjaman</span>
+            </a>
 
-            <a href="#" class="flex items-center gap-4 px-4 py-4 rounded-2xl text-slate-400 hover:bg-slate-50 hover:text-emerald-600 font-bold text-sm transition">
+            <a href="{{ route('user.history') }}" class="flex items-center gap-4 px-4 py-4 rounded-2xl text-slate-400 hover:bg-slate-50 hover:text-emerald-600 font-bold text-sm transition">
                 <i class="fa-solid fa-clock-rotate-left text-lg shrink-0"></i>
                 <span x-show="sidebarOpen" x-transition class="whitespace-nowrap">Riwayat</span>
             </a>
+
         </nav>
 
         <div class="p-3 mt-auto border-t border-slate-50">

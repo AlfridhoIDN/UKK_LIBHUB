@@ -17,7 +17,7 @@ class CreatePeminjamanTable extends Migration
             $table->foreignId('buku_id')->constrained('bukus')->onDelete('cascade');
             $table->date('tanggal_peminjaman');
             $table->date('tanggal_pengembalian');
-            $table->enum('status_peminjaman', ['pending', 'accepted', 'rejected', 'dikembalikan'])->default('pending');
+            $table->enum('status_peminjaman', ['pending', 'accepted', 'rejected', 'dikembalikan', 'returning'])->default('pending');
             $table->timestamps();
         });
     }

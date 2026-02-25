@@ -20,12 +20,12 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'username',
-        'nama_lengkap', // Tambahkan ini
+        'nama_lengkap', 
         'email',
         'google_id', 
         'password',
         'role',
-        'alamat',       // Tambahkan jika ingin bisa diisi nanti
+        'alamat',       
     ];
 
     /**

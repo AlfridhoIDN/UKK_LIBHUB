@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Loan extends Model
 {
     protected $table = 'peminjaman';
@@ -15,12 +15,11 @@ class Loan extends Model
         'status_peminjaman',
     ];
     
-    public function user(): BelongsTo
+    public function user():BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    // Relasi ke Book
     public function book(): BelongsTo
     {
         return $this->belongsTo(Book::class, 'buku_id');

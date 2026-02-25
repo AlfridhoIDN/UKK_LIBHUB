@@ -47,10 +47,10 @@
                     </div>
 
                     <div class="flex flex-wrap items-center justify-center md:justify-start gap-3">
-                        <button class="px-8 py-4 bg-emerald-600 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-emerald-700 transition shadow-xl shadow-emerald-100 flex items-center gap-2 active:scale-95">
+                        <a href="{{ route('book.loan.index', $book->id) }}" class="px-8 py-4 bg-emerald-600 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-emerald-700 transition shadow-xl shadow-emerald-100 flex items-center gap-2 active:scale-95">
                             <i class="fa-solid fa-hand-holding-heart"></i>
                             Pinjam Buku
-                        </button>
+                        </a>
                         <button class="px-8 py-4 bg-white border-2 border-slate-100 text-slate-400 rounded-2xl font-black text-xs uppercase tracking-widest hover:text-emerald-500 hover:border-emerald-100 transition flex items-center gap-2 active:scale-95 group">
                             <i class="fa-solid fa-bookmark"></i>
                             Tambah Favorit

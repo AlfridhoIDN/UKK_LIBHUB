@@ -18,6 +18,10 @@
            class="px-8 py-3 rounded-[1.8rem] text-xs font-black uppercase tracking-widest transition-all {{ $status == 'accepted' ? 'bg-white text-emerald-600 shadow-sm border border-slate-100' : 'text-slate-400 hover:text-slate-600' }}">
             Dipinjam
         </a>
+        <a href="{{ route('loan.index', ['status' => 'returning']) }}" 
+           class="px-8 py-3 rounded-[1.8rem] text-xs font-black uppercase tracking-widest transition-all {{ $status == 'returning' ? 'bg-white text-emerald-600 shadow-sm border border-slate-100' : 'text-slate-400 hover:text-slate-600' }}">
+            Pengembalian
+        </a>
         <a href="{{ route('loan.index', ['status' => 'rejected']) }}" 
            class="px-8 py-3 rounded-[1.8rem] text-xs font-black uppercase tracking-widest transition-all {{ $status == 'rejected' ? 'bg-white text-emerald-600 shadow-sm border border-slate-100' : 'text-slate-400 hover:text-slate-600' }}">
             Ditolak
@@ -63,19 +67,36 @@
                         <td class="px-6 py-5">
                             <div class="flex justify-center gap-2">
                                 @if($status == 'pending')
-                                    <form action="#" method="POST">
+                                    <form action="{{ route('book.loan.update',$loan->id) }}" method="POST">
                                         @csrf
-                                        <button class="px-5 py-2.5 bg-emerald-500 text-white text-[10px] font-black rounded-xl hover:bg-emerald-600 transition shadow-sm uppercase tracking-widest">Accept</button>
+                                        @method('PUT')
+                                        <input type="hidden" name="status" value="accepted">
+                                        <button type="submit" class="px-5 py-2.5 bg-emerald-500 text-white text-[10px] font-black rounded-xl hover:bg-emerald-600 transition shadow-sm uppercase tracking-widest">Accept</button>
                                     </form>
-                                    <form action="#" method="POST">
+                                    <form action="{{ route('book.loan.update',$loan->id) }}" method="POST">
                                         @csrf
-                                        <button class="px-5 py-2.5 bg-white border border-rose-100 text-rose-500 text-[10px] font-black rounded-xl hover:bg-rose-50 transition shadow-sm uppercase tracking-widest">Reject</button>
+                                        @method('PUT')
+                                        <input type="hidden" name="status" value="rejected">
+                                        <button type="submit" class="px-5 py-2.5 bg-white border border-rose-100 text-rose-500 text-[10px] font-black rounded-xl hover:bg-rose-50 transition shadow-sm uppercase tracking-widest">Reject</button>
                                     </form>
                                 @elseif($status == 'accepted')
                                     <span class="px-6 py-2 bg-emerald-50 text-emerald-600 text-[10px] font-black rounded-xl uppercase tracking-widest flex items-center gap-2">
                                         <div class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
                                         Aktif Meminjam
                                     </span>
+                                @elseif ($status == 'returning')
+                                    <form action="{{ route('book.loan.update',$loan->id) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <input type="hidden" name="status" value="dikembalikan">
+                                        <button type="submit" class="px-5 py-2.5 bg-emerald-500 text-white text-[10px] font-black rounded-xl hover:bg-emerald-600 transition shadow-sm uppercase tracking-widest">Accept</button>
+                                    </form>
+                                    <form action="{{ route('book.loan.update',$loan->id) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <input type="hidden" name="status" value="accepted">
+                                        <button type="submit" class="px-5 py-2.5 bg-white border border-rose-100 text-rose-500 text-[10px] font-black rounded-xl hover:bg-rose-50 transition shadow-sm uppercase tracking-widest">Reject</button>
+                                    </form>
                                 @else
                                     <span class="px-6 py-2 bg-slate-50 text-slate-400 text-[10px] font-black rounded-xl uppercase tracking-widest">
                                         No Action Needed

@@ -60,7 +60,7 @@
                                 <i class="fa-solid fa-heart text-emerald-500 text-[10px]"></i>
                                 <span class="text-emerald-900 font-black text-[11px]">{{ number_format(rand(100, 999)) }}</span>
                             </div>
-                            <a href="{{ route('book.show', $book->id) }}" class="text-[10px] font-black text-emerald-600 hover:underline uppercase tracking-tighter">
+                            <a href="{{ route('landingpage.book', $book->id) }}" class="text-[10px] font-black text-emerald-600 hover:underline uppercase tracking-tighter">
                                 Detail
                             </a>
                         </div>
