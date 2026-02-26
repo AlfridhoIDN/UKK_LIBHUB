@@ -11,10 +11,10 @@ class CreateKoleksispiradiTable extends Migration
      */
     public function up(): void
     {
-        Schema::create('koleksispiradi', function (Blueprint $table) {
+        Schema::create('koleksipribadi', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('bukus_id')->constrained('bukus')->onDelete('cascade');
+            $table->foreignId('buku_id')->constrained('bukus')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ class CreateKoleksispiradiTable extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('koleksispiradi');
+        Schema::dropIfExists('koleksipribadi');
     }
 }

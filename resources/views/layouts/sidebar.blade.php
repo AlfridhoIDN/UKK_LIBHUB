@@ -16,7 +16,7 @@
                 <span x-show="sidebarOpen" x-transition class="whitespace-nowrap">Akun Ku</span>
             </a>
             
-            <a href="{{ route('user.favorite') }}" class="flex items-center gap-4 px-4 py-4 rounded-2xl text-slate-400 hover:bg-slate-50 hover:text-emerald-600 font-bold text-sm transition">
+            <a href="{{ route('user.favorite.index') }}" class="flex items-center gap-4 px-4 py-4 rounded-2xl text-slate-400 hover:bg-slate-50 hover:text-emerald-600 font-bold text-sm transition">
                 <i class="fa-solid fa-heart text-lg shrink-0"></i>
                 <span x-show="sidebarOpen" x-transition class="whitespace-nowrap">Favorite</span>
             </a>

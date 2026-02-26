@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Models\Category;
-use App\Models\Loan;
+use App\Models\Favorite;
 
 class FavoriteController extends Controller
 {
@@ -14,7 +14,9 @@ class FavoriteController extends Controller
      */
     public function index()
     {
-        $favorites = Book::all();
+        $favorites = Favorite::with('book')
+                            ->where('user_id', auth()->id())
+                            ->get();
         return view('user.favorite.index',compact('favorites'));
     }
 
@@ -31,7 +33,16 @@ class FavoriteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'buku_id' => 'required|exists:bukus,id',
+        ]);
+
+        Favorite::create([
+            'user_id' => auth()->id(),
+            'buku_id' => $request->buku_id,
+        ]);
+
+        return redirect()->back()->with('success', 'Buku berhasil di tambah Bookmark');
     }
 
     /**

@@ -34,8 +34,8 @@
                             <td class="px-6 py-5">
                                 <div class="flex items-center gap-4">
                                     <div class="w-12 h-16 rounded-lg bg-slate-100 overflow-hidden shadow-sm shrink-0">
-                                        @if($item->buku->cover_image)
-                                            <img src="{{ asset('storage/' . $item->buku->cover_image) }}" class="w-full h-full object-cover">
+                                        @if($item->book->cover_image)
+                                            <img src="{{ asset('storage/' . $item->book->cover_image) }}" class="w-full h-full object-cover">
                                         @else
                                             <div class="w-full h-full flex items-center justify-center text-slate-300">
                                                 <i class="fa-solid fa-book text-xs"></i>
@@ -43,8 +43,8 @@
                                         @endif
                                     </div>
                                     <div>
-                                        <h4 class="font-black text-emerald-950 leading-tight line-clamp-1 group-hover:text-emerald-600 transition">{{ $item->buku->judul }}</h4>
-                                        <p class="text-[10px] font-bold text-slate-400 uppercase mt-1">{{ $item->buku->penulis }}</p>
+                                        <h4 class="font-black text-emerald-950 leading-tight line-clamp-1 group-hover:text-emerald-600 transition">{{ $item->book->judul }}</h4>
+                                        <p class="text-[10px] font-bold text-slate-400 uppercase mt-1">{{ $item->book->penulis }}</p>
                                     </div>
                                 </div>
                             </td>
@@ -52,7 +52,7 @@
                                 <span class="text-sm font-bold text-slate-600">{{ \Carbon\Carbon::parse($item->tanggal_peminjaman)->format('d M Y') }}</span>
                             </td>
                             <td class="px-6 py-5">
-                                <span class="text-sm font-bold text-slate-600">{{ \Carbon\Carbon::parse($item->tanggal_pengembalian)->format('d M Y') }}</span>
+                                <span class="text-sm font-bold text-slate-600">{{ \Carbon\Carbon::parse($item->updated_at)->format('d M Y') }}</span>
                             </td>
                             <td class="px-6 py-5 text-center">
                                 <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-[9px] font-black uppercase tracking-widest">
@@ -61,7 +61,7 @@
                                 </span>
                             </td>
                             <td class="px-6 py-5 text-right">
-                                <a href="{{ route('landing.book.show', $item->buku_id) }}" class="text-[10px] font-black text-emerald-600 hover:text-emerald-800 uppercase tracking-widest">
+                                <a href="{{ route('landingpage.book', $item->buku_id) }}" class="text-[10px] font-black text-emerald-600 hover:text-emerald-800 uppercase tracking-widest">
                                     Pinjam Lagi
                                 </a>
                             </td>

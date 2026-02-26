@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <title>Login - LIBHUB</title>
 </head>
 <body class="bg-[#f0f4f3] min-h-screen flex flex-col p-4">

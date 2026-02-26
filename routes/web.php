@@ -32,10 +32,12 @@ Route::group(['prefix' => '/'], function(){
 
         
         Route::get('user/settings', [UserDashboardController::class, 'index'])->name('user.dashboard');
-        Route::get('user/favorite', [FavoriteController::class,'index'])->name('user.favorite');
         Route::get('user/history', [HistoryController::class,'index'])->name('user.history');
         Route::get('user/loans',[LoanController::class,'view'])->name('user.loan');
-        
+
+        Route::get('user/favorite', [FavoriteController::class,'index'])->name('user.favorite.index');
+        Route::post('user/favorite', [FavoriteController::class,'store'])->name('user.favorite.store');
+
         Route::get('loan/form/{id}',[LoanController::class, 'create'])->name('book.loan.index');
         Route::post('loan/form',[LoanController::class,'store'])->name('book.loan.create');
         Route::middleware(['admin'])->group(function (){

@@ -30,8 +30,8 @@
             @foreach($favorites as $book)
                 <div class="group bg-white rounded-[2rem] border border-emerald-50 p-3 hover:shadow-2xl hover:shadow-emerald-100 transition-all duration-500">
                     <div class="relative aspect-[3/4.5] rounded-[1.5rem] overflow-hidden mb-4 shadow-sm">
-                        @if($book->cover_image)
-                            <img src="{{ asset('storage/' . $book->cover_image) }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                        @if($book->book->cover_image)
+                            <img src="{{ asset('storage/' . $book->book->cover_image) }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
                         @else
                             <div class="w-full h-full bg-emerald-50 flex items-center justify-center text-emerald-200">
                                 <i class="fa-solid fa-book text-4xl"></i>
@@ -47,12 +47,19 @@
                     </div>
 
                     <div class="px-1 pb-2">
+                        @forelse ($book->book->categories as $category)
+                            
                         <p class="text-slate-400 font-black text-[9px] mb-1 uppercase tracking-tight">
-                            {{ $book->categories->first()->nama_kategori ?? 'Umum' }}
+                            {{ $category->nama_kategori }}
                         </p>
+                        @empty
+                        <p class="text-slate-400 font-black text-[9px] mb-1 uppercase tracking-tight">
+                            Tidak Memiliki Kategori
+                        </p>
+                        @endforelse
 
                         <h3 class="font-black text-emerald-950 leading-tight group-hover:text-emerald-600 transition line-clamp-2 mb-2 h-10">
-                            {{ $book->judul }}
+                            {{ $book->book->judul }}
                         </h3>
 
                         <div class="flex items-center justify-between mt-3 pt-3 border-t border-slate-50">
@@ -60,7 +67,7 @@
                                 <i class="fa-solid fa-heart text-emerald-500 text-[10px]"></i>
                                 <span class="text-emerald-900 font-black text-[11px]">{{ number_format(rand(100, 999)) }}</span>
                             </div>
-                            <a href="{{ route('landingpage.book', $book->id) }}" class="text-[10px] font-black text-emerald-600 hover:underline uppercase tracking-tighter">
+                            <a href="{{ route('landingpage.book', $book->book->id) }}" class="text-[10px] font-black text-emerald-600 hover:underline uppercase tracking-tighter">
                                 Detail
                             </a>
                         </div>

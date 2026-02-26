@@ -93,7 +93,7 @@
                             ajukan kembali
                         </a>
                         <button class="w-12 h-12 flex items-center justify-center bg-slate-50 text-slate-400 rounded-xl hover:text-emerald-600 transition">
-                            <i class="fa-solid fa-circle-question"></i>
+                            <i class="fa-solid fa-print"></i>
                         </button>
                     </div>
                 </div>

@@ -11,7 +11,7 @@ class HistoryController extends Controller
      */
     public function index()
     {
-        $history = Loan::with('buku')
+        $history = Loan::with('book')
         ->where('user_id', auth()->id())
         ->where('status_peminjaman', 'dikembalikan') 
         ->orderBy('tanggal_pengembalian', 'desc')

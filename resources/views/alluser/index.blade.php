@@ -61,9 +61,13 @@
                             @endforelse
                         </div>
                         
-                        <button class="absolute top-5 right-5 z-20 p-3 bg-white/90 backdrop-blur-md rounded-2xl text-emerald-300 hover:text-red-500 transition-all transform translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 shadow-xl">
+                        <form action="{{ route('user.favorite.store') }}" method="post">
+                        @csrf
+                        <input type="hiddem" name="buku_id" value="{{ $book->id }}">
+                        <button type="submit" class="absolute top-5 right-5 z-20 p-3 bg-white/90 backdrop-blur-md rounded-2xl text-emerald-300 hover:text-red-500 transition-all transform translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 shadow-xl">
                             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z"></path></svg>
                         </button>
+                        </form>
 
                         @if($book->cover_image)
                         <img src="{{ asset('storage/' .$book->cover_image) }}" class="w-full h-full object-cover" alt="Cover">

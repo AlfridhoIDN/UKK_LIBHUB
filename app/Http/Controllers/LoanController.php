@@ -63,7 +63,7 @@ class LoanController extends Controller
             'status_peminjaman' => 'pending',
         ]);
 
-        return redirect()->route('user.history')->with('success', 'Permintaan peminjaman berhasil dikirim!');
+        return redirect()->route('user.loan')->with('success', 'Permintaan peminjaman berhasil dikirim!');
     }
 
     /**
