@@ -10,6 +10,7 @@ use App\Http\Controllers\LoanController;
 use App\Http\Controllers\UserDashboardController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\LoanHistoryController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [DashboardController::class, 'index'])->name('landingpage');
@@ -78,6 +79,7 @@ Route::group(['prefix' => '/'], function(){
             
             Route::get('loan-data',[LoanController::class, 'index'])->name('loan.index');
             Route::put('loan-data/update-loan/{id}',[LoanController::class,'update'])->name('book.loan.update');
+            Route::get('loan-data/history',[LoanHistoryController::class,'index'])->name('book.loan.history');
         });
     // });
 });

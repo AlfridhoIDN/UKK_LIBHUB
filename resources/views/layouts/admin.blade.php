@@ -63,7 +63,7 @@
                     <span x-show="sidebarOpen" x-cloak class="font-bold text-sm">Peminjaman</span>
                 </a>
 
-                <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-2xl hover:bg-emerald-800 transition group">
+                <a href="{{ route('book.loan.history') }}" class="flex items-center gap-4 px-4 py-3 rounded-2xl hover:bg-emerald-800 transition group">
                     <svg class="w-6 h-6 text-emerald-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     <span x-show="sidebarOpen" x-cloak class="font-bold text-sm">Riwayat Pinjam</span>
                 </a>

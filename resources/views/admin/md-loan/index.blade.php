@@ -84,6 +84,16 @@
                                         <div class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
                                         Aktif Meminjam
                                     </span>
+                                    <button type="button" 
+                                        onclick="printReceipt({
+                                            nama: '{{ $loan->user->username }}',
+                                            buku: '{{ $loan->book->judul }}',
+                                            tgl_pinjam: '{{ \Carbon\Carbon::parse($loan->tanggal_peminjaman)->format('d/m/Y') }}',
+                                            tgl_kembali: '{{ \Carbon\Carbon::parse($loan->tanggal_pengembalian)->format('d/m/Y') }}'
+                                        })"
+                                        class="p-2.5 bg-slate-900 text-white rounded-xl hover:bg-emerald-600 transition shadow-sm">
+                                        <i class="fa-solid fa-print"></i>
+                                    </button>
                                 @elseif ($status == 'returning')
                                     <form action="{{ route('book.loan.update',$loan->id) }}" method="POST">
                                         @csrf
@@ -122,4 +132,101 @@
         </div>
     </div>
 </div>
+
+
+
+<div id="receipt-area" class="hidden">
+    <div style="text-align: center; font-family: 'Courier New', Courier, monospace; width: 80mm; padding: 5mm; color: #000;">
+        <h2 style="margin: 0; font-size: 18px; font-weight: 900;">LIBHUB</h2>
+        <p style="margin: 2px 0; font-size: 12px;">Bukti Peminjaman Buku</p>
+        <div style="border-bottom: 1px dashed #000; margin: 5px 0;"></div>
+        
+        <table style="width: 100%; font-size: 11px; border-collapse: collapse;">
+            <tr>
+                <td style="padding: 2px 0;">Peminjam:</td>
+                <td style="text-align: right; font-weight: bold;" id="rcp-nama"></td>
+            </tr>
+            <tr>
+                <td style="padding: 2px 0; vertical-align: top;">Buku:</td>
+                <td style="text-align: right; font-weight: bold;" id="rcp-buku"></td>
+            </tr>
+        </table>
+
+        <div style="border-bottom: 1px dashed #000; margin: 5px 0;"></div>
+        
+        <div style="font-size: 11px; text-align: left;">
+            <div style="display: flex; justify-content: space-between;">
+                <span>Tgl Pinjam:</span>
+                <span id="rcp-pinjam"></span>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+                <span>Tgl Kembali:</span>
+                <span id="rcp-kembali"></span>
+            </div>
+        </div>
+        <div style="border-bottom: 1px dashed #000; margin: 5px 0;"></div>
+        <p style="margin: 2px 0; font-size: 12px;">Akan Di Kenakan Denda Apabila Buku:</p>
+        <div style="font-size: 11px; text-align: left;">
+            <div style="display: flex; justify-content: space-between;">
+                <span>Telat Kembali:</span>
+                <span id="rcp-pinjam">Rp.5.000/hari</span>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+                <span>Rusak:</span>
+                <span id="rcp-pinjam">Rp.50.000</span>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+                <span>Kotor:</span>
+                <span id="rcp-kembali">Rp.30.000</span>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+                <span>Hilang:</span>
+                <span id="rcp-kembali">(Ganti Baru)</span>
+            </div>
+        </div>
+
+        <div style="border-bottom: 1px dashed #000; margin: 5px 0;"></div>
+        <p style="font-size: 10px; font-style: italic;">* Harap kembalikan buku tepat waktu.<br>Terima Kasih!</p>
+    </div>
+</div>
+<style>
+    @media print {
+        body * { visibility: hidden; }
+        
+        #receipt-area, #receipt-area * { visibility: visible; }
+        
+        #receipt-area {
+            display: block !important;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 80mm;
+            background: white;
+            padding: 0;
+            margin: 0;
+        }
+
+        @page {
+            size: 53mm 150mm;
+            margin: 0;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+        }
+    }
+</style>
+
+<script>
+function printReceipt(data) {
+    document.getElementById('rcp-nama').innerText = data.nama;
+    document.getElementById('rcp-buku').innerText = data.buku;
+    document.getElementById('rcp-pinjam').innerText = data.tgl_pinjam;
+    document.getElementById('rcp-kembali').innerText = data.tgl_kembali;
+
+    window.print();
+}
+</script>
+
 @endsection
