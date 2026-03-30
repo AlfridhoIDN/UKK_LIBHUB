@@ -11,6 +11,7 @@ use App\Http\Controllers\UserDashboardController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\LoanHistoryController;
+use App\Http\Controllers\InvoiceController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [DashboardController::class, 'index'])->name('landingpage');
@@ -28,7 +29,7 @@ Route::group(['prefix' => '/'], function(){
         Route::get('account/google/redirect', [UserController::class, 'redirectToGoogle'])->name('account.google.redirect');
         Route::get('account/google/callback', [UserController::class, 'handleGoogleCallback']);
     });
-    // Route::group(['middleware' => 'auth'], function(){
+    Route::group(['middleware' => 'auth'], function(){
         Route::get('logout',[UserController::class,'logout'])->name('account.logout');
 
         
@@ -80,6 +81,8 @@ Route::group(['prefix' => '/'], function(){
             Route::get('loan-data',[LoanController::class, 'index'])->name('loan.index');
             Route::put('loan-data/update-loan/{id}',[LoanController::class,'update'])->name('book.loan.update');
             Route::get('loan-data/history',[LoanHistoryController::class,'index'])->name('book.loan.history');
+
+            Route::get('invoice-data',[InvoiceController::class,'index'])->name('invoice.index');
         });
-    // });
+    });
 });
