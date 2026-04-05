@@ -37,14 +37,25 @@ class FavoriteController extends Controller
             'buku_id' => 'required|exists:bukus,id',
         ]);
 
+        $userId = auth()->id();
+        $bukuId = $request->buku_id;
+
+        $favorite = Favorite::where('user_id', $userId)
+                            ->where('buku_id', $bukuId)
+                            ->first();
+
+        if ($favorite) {
+            $favorite->delete();
+            return redirect()->back()->with('success', 'Buku berhasil dihapus dari Bookmark');
+        }
+
         Favorite::create([
-            'user_id' => auth()->id(),
-            'buku_id' => $request->buku_id,
+            'user_id' => $userId,
+            'buku_id' => $bukuId,
         ]);
 
-        return redirect()->back()->with('success', 'Buku berhasil di tambah Bookmark');
+        return redirect()->back()->with('success', 'Buku berhasil ditambah ke Bookmark');
     }
-
     /**
      * Display the specified resource.
      */
@@ -74,6 +85,9 @@ class FavoriteController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $favorites = Favorite::findOrFail($id);
+        $favorites -> delete();
+
+        return redirect()->back()->with('success','Buku Berhasil Di Unfavorit');
     }
 }

@@ -81,17 +81,20 @@
                             </div>
                         </div>
 
-                        {{-- Progress Bar Simple --}}
                         <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
                             <div class="h-full bg-emerald-500 rounded-full transition-all duration-1000" style="width: 70%"></div>
                         </div>
                     </div>
 
-                    {{-- Action Button --}}
                     <div class="mt-6 flex gap-3 relative z-10">
-                        <a href="{{ route('landingpage.book', $loan->buku_id) }}" class="flex-1 py-3 bg-slate-900 text-white rounded-xl text-center font-black text-[10px] uppercase tracking-[0.2em] hover:bg-emerald-600 transition active:scale-95">
-                            ajukan kembali
-                        </a>
+                        <form action="{{ route('book.loan.update', $loan->id) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <input type="hidden" name="status" value="returning">
+                            <button type="submit" class="flex-1 py-3 bg-slate-900 text-white rounded-xl text-center font-black text-[10px] uppercase tracking-[0.2em] hover:bg-emerald-600 transition active:scale-95">
+                                ajukan kembali
+                            </button>
+                        </form>
                         <button class="w-12 h-12 flex items-center justify-center bg-slate-50 text-slate-400 rounded-xl hover:text-emerald-600 transition">
                             <i class="fa-solid fa-print"></i>
                         </button>

@@ -53,7 +53,7 @@
                             <span class="text-xs font-bold text-slate-500">{{ \Carbon\Carbon::parse($item->tanggal_peminjaman)->format('d/m/y') }}</span>
                         </td>
                         <td class="px-6 py-5 text-center">
-                            <span class="text-xs font-bold text-slate-500">{{ \Carbon\Carbon::parse($item->tanggal_pengembalian)->format('d/m/y') }}</span>
+                            <span class="text-xs font-bold text-slate-500">{{ \Carbon\Carbon::parse($item->update_at)->format('d/m/y') }}</span>
                         </td>
                     </tr>
                     @endforeach

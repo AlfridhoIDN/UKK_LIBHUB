@@ -39,6 +39,7 @@ Route::group(['prefix' => '/'], function(){
 
         Route::get('user/favorite', [FavoriteController::class,'index'])->name('user.favorite.index');
         Route::post('user/favorite', [FavoriteController::class,'store'])->name('user.favorite.store');
+        Route::delete('user/favorite/{id}', [FavoriteController::class,'destroy'])->name('user.favorite.delete');
 
         Route::get('loan/form/{id}',[LoanController::class, 'create'])->name('book.loan.index');
         Route::post('loan/form',[LoanController::class,'store'])->name('book.loan.create');

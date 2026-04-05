@@ -23,10 +23,11 @@ class LoanHistoryController extends Controller
         }
 
         if ($request->filled('status')) {
-            $query->where('status_peminjaman', $request->status);
+            $query->where('status_peminjaman', '$request->status');
         }
 
-        $allPeminjaman = $query->orderBy('created_at', 'desc')->get();
+        $allPeminjaman = $query->orderBy('created_at', 'desc')
+        ->where('status_peminjaman','dikembalikan')->get();
 
         return view('admin.md-history.loan.index', compact('allPeminjaman'));
     }

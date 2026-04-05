@@ -38,8 +38,9 @@
                             </div>
                         @endif
 
-                        <form action="#" method="POST" class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <form action="{{ route('user.favorite.delete', $book->id) }}" method="POST" class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
                             @csrf
+                            @method('DELETE')
                             <button class="w-10 h-10 bg-white/90 backdrop-blur-md text-rose-500 rounded-xl flex items-center justify-center shadow-lg hover:bg-rose-500 hover:text-white transition">
                                 <i class="fa-solid fa-trash-can text-xs"></i>
                             </button>
